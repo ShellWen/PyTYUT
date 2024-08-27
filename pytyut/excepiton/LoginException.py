@@ -12,8 +12,6 @@ class LoginException(Exception):
     def __init__(self, msg: str = "未知异常"):
         self.msg = msg
 
-    def get_msg(self):
-        return self.msg
-
-    def login_timeout(self):
-        self.msg = "登录已失效"
+    @staticmethod
+    def login_timeout() -> "LoginException":
+        return LoginException("登录已失效")

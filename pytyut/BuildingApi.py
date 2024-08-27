@@ -34,7 +34,7 @@ class BuildingApi:
         req_url = self.node + 'Tschedule/Zhcx/GetJxlhByXqh'
         res = self.session.post(req_url, data=data, headers=DEFAULT_HEADERS)
         if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-            raise LoginException().login_timeout()
+            raise LoginException.login_timeout()
         return res.json()
 
     def get_free_class_info(self, zc: str = '', xq: str = '', ksjc: str = '', jsjc: str = '', xqh: str = '',
@@ -53,7 +53,7 @@ class BuildingApi:
         req_url = self.node + 'Tschedule/Zhcx/GetPageListJson'
         res = self.session.post(req_url, data=data, headers=DEFAULT_HEADERS)
         if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-            raise LoginException().login_timeout()
+            raise LoginException.login_timeout()
         return res.json()
 
     def get_classroom_tree_by_campus(self):
@@ -64,7 +64,7 @@ class BuildingApi:
         req_url = self.node + 'Tschedule/Zhcx/GetXqJxlJasTreeJson'
         res = self.session.post(req_url, data=GET_CLASSROOM_TREE_BY_CAMPUS_REQUEST_DATA, headers=DEFAULT_HEADERS)
         if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-            raise LoginException().login_timeout()
+            raise LoginException.login_timeout()
         return res.json()
     
     
@@ -83,5 +83,5 @@ class BuildingApi:
         req_url = self.node + 'Tschedule/Zhcx/GetSjjsSjddByJash'
         res = self.session.post(req_url, data=data, headers=DEFAULT_HEADERS)
         if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-            raise LoginException().login_timeout()
+            raise LoginException.login_timeout()
         return res.json()

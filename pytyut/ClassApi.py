@@ -29,5 +29,5 @@ class ClassApi:
         req_url = self.node + 'Tschedule/Zhcx/GetNjxszyTreeByrwbjJson'
         res = self.session.post(req_url, data=data, headers=DEFAULT_HEADERS)
         if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-            raise LoginException().login_timeout()
+            raise LoginException.login_timeout()
         return res.json()

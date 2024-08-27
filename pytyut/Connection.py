@@ -70,7 +70,7 @@ class Connection:
         req_url = self.node + 'Home/StudentResult'
         res = self.session.get(req_url, headers=self.default_headers)
         if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-            raise LoginException().login_timeout()
+            raise LoginException.login_timeout()
         avatar = self.session.get(self.node + 'Tresources/AXsgj/ZpResultXs', headers=self.default_headers).content
         param = '<div class="profile-info-name">([^^]*?)</div>[^^]*?<[^^]*?>(.*)</[^^]*?>'
         result = re.findall(param, res.text)
@@ -92,7 +92,7 @@ class Connection:
         # 这里请求数据与获取课程成绩用的数据是一样的
         res = self.session.post(req_url, data=GET_COURSE_SCORE_REQUEST_DATA, headers=self.default_headers)
         if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-            raise LoginException().login_timeout()
+            raise LoginException.login_timeout()
         if '评教未完成' in res.text:
             raise CourseException("评教未完成，系统限制不予允许查询成绩！")
         key_info_list = re.findall('<div class="profile-info-name">([^<]*?)</div>', res.text)

@@ -39,7 +39,7 @@ class CourseApi:
         """
         res = self.session.post(self.node + 'Tresources/A1Xskb/GetXsKb', headers=DEFAULT_HEADERS)
         if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-            raise LoginException().login_timeout()
+            raise LoginException.login_timeout()
         return res.json()
 
     def get_all_course_score(self, moreInformation=False) -> list:
@@ -52,7 +52,7 @@ class CourseApi:
             req_url = self.node + '/Home/GetBxqcj'
             res = self.session.post(req_url, headers=DEFAULT_HEADERS)
             if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-                raise LoginException().login_timeout()
+                raise LoginException.login_timeout()
             html_text = json.loads(res.text)["rpath"]["m_StringValue"]
             # html_text = html_text.replace('<font style="color: #ff0000">', '').replace('</font>', '')
             param = '''<tr><td  height='20%' width='80%' style=\\"vertical-align:middle; \\">([^<]*?)</td><td  height='20%'  width='20%' style=\\"vertical-align:middle; \\">([^<]*?)</td> </tr>'''
@@ -63,7 +63,7 @@ class CourseApi:
         res = self.session.post(req_url, headers=DEFAULT_HEADERS, data=GET_COURSE_SCORE_REQUEST_DATA)
 
         if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-            raise LoginException().login_timeout()
+            raise LoginException.login_timeout()
 
         if '评教未完成' in res.text:
             raise CourseException("评教未完成，系统限制不予允许查询成绩！")
@@ -116,7 +116,7 @@ class CourseApi:
             }
             res = self.session.post(req_url, headers=DEFAULT_HEADERS, data=data)
             if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-                raise LoginException().login_timeout()
+                raise LoginException.login_timeout()
             html_text = json.loads(res.text)["rpath"]["m_StringValue"]
             html_text = html_text.replace('<font style="color: #ff0000">', '').replace('</font>', '')
             param = '''<tr><td height='20%' width='10%' style="vertical-align:middle; ">([^<]*?)</td><td height='20%' width='25%' style="vertical-align:middle; ">([^<]*?)</td><td height='20%' width='37%' style="vertical-align:middle; ">([^<]*?)</td> <td height='20%' width='30%' style="vertical-align:middle; ">([^<]*?)</td></tr>'''
@@ -127,7 +127,7 @@ class CourseApi:
         data = build_get_test_info_request_data(semester)
         res = self.session.post(req_url, headers=DEFAULT_HEADERS, data=data)
         if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-            raise LoginException().login_timeout()
+            raise LoginException.login_timeout()
         return res.json()
 
     def get_course_schedule_by_bjh(self, semester: str, bjh: str) -> dict:
@@ -145,7 +145,7 @@ class CourseApi:
         req_url = self.node + 'Tschedule/Zhcx/GetSjjsSjddByBjh'
         res = self.session.post(req_url, data=data, headers=DEFAULT_HEADERS)
         if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-            raise LoginException().login_timeout()
+            raise LoginException.login_timeout()
         return res.json()
 
     def get_selectable_course_list(self, semester: str = 'now') -> dict:
@@ -165,7 +165,7 @@ class CourseApi:
         res = self.session.post(req_url, data=data, headers=DEFAULT_HEADERS)
 
         if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-            raise LoginException().login_timeout()
+            raise LoginException.login_timeout()
         return res.json()
 
     def get_select_course_list(self, pid: str, semester: str = 'now') -> dict:
@@ -185,7 +185,7 @@ class CourseApi:
         req_url = self.node + 'Tschedule/C4Xkgl/GetXkkcListByXh'
         res = self.session.post(req_url, data=data, headers=DEFAULT_HEADERS)
         if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-            raise LoginException().login_timeout()
+            raise LoginException.login_timeout()
         json_info = res.json()
 
         # 判断有没有用错接口
@@ -206,7 +206,7 @@ class CourseApi:
         data = build_get_selected_course_list_request_data()
         res = self.session.post(req_url, data=data, headers=DEFAULT_HEADERS)
         if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-            raise LoginException().login_timeout()
+            raise LoginException.login_timeout()
         return res.json()
 
     def get_set_cookie(self, headers: dict) -> str:
@@ -247,7 +247,7 @@ class CourseApi:
         data['__RequestVerificationToken'] = self.get_set_cookie(headers)
         res = self.session.post(req_url, data=data, headers=headers)
         if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-            raise LoginException().login_timeout()
+            raise LoginException.login_timeout()
         return res.json()
 
     # TODO: 未经测试
@@ -278,7 +278,7 @@ class CourseApi:
         data['__RequestVerificationToken'] = self.get_set_cookie(headers)
         res = self.session.post(req_url, data=data, headers=headers)
         if '出错' in res.text or '教学管理服务平台(S)' in res.text:
-            raise LoginException().login_timeout()
+            raise LoginException.login_timeout()
         return res.json()
 
     def get_course_schedule_by_classroom(self, xnxq, xqh, jxlh, jash):
